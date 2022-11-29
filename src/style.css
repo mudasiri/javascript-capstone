@@ -9,6 +9,33 @@ header {
   align-items: center;
 }
 
+#astronaut {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+  padding: 5%;
+}
+
+.person {
+  display: flex;
+  flex-direction: column;
+}
+
+.person-img {
+  height: 100%;
+  width: 100%;
+}
+
+.title-area {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.heart {
+  color: tomato;
+}
+
 footer {
   bottom: 0;
   display: flex;
