@@ -6,7 +6,7 @@ export const displayAstronauts = (astronauts) => {
   astronautList.innerHTML = '';
   astronauts.forEach((astronaut) => {
     // append div to main tag
-    astronautList.insertAdjacentHTML('beforeend', `<div class='person'><img class='person-img' src= '${astronaut.image}'> <div class='title-area'><h2>${astronaut.name}</h2> <i class="heart fa-regular fa-heart"></i> </div> <button>Comments</button><button>Reservations</button></div>`);
+    astronautList.insertAdjacentHTML('beforeend', `<div class='person'><img class='person-img' src= '${astronaut.image}' alt='${astronaut.name}-image'> <div class='title-area'><h2>${astronaut.name}</h2> <i class="heart fa-regular fa-heart"></i> </div> <button>Comments</button><button>Reservations</button></div>`);
   });
 };
 
