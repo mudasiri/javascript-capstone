@@ -9,11 +9,11 @@ header {
   align-items: center;
 }
 
-#astronaut{
+#astronaut {
   display: grid;
-grid-template-columns: repeat(4,1fr);
-gap: 30px;
-padding: 5%;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+  padding: 5%;
 }
 
 .person {
@@ -26,13 +26,13 @@ padding: 5%;
   width: 100%;
 }
 
-.title-area{
+.title-area {
   display: flex;
-justify-content: space-between;
-align-items: center;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.heart{
+.heart {
   color: tomato;
 }
 
