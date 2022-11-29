@@ -8,3 +8,10 @@ header {
   justify-content: space-evenly;
   align-items: center;
 }
+
+footer {
+  bottom:0;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
