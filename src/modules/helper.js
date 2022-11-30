@@ -13,25 +13,25 @@ export const addNewLike = async (newLike) => {
       },
       body: JSON.stringify(newLike),
     });
-    const data = await req.json();
 
     if (!req.ok) {
       return data;
     }
-    else {
-      await getAllAstronautsLikes();
-    }
+    const prevLikeTag = document.getElementById(`${newLike.item_id}`);
+    const previosLikeCount = Number(document.getElementById(`${newLike.item_id}`).innerText)
+    prevLikeTag.innerHTML = previosLikeCount + 1;
     return data;
   } catch (error) {
     return error;
   }
 };
+
 // create arrow function to loop through and display austraunauts lists from API
 export const displayAstronauts = (astronauts) => {
   astronautList.innerHTML = '';
   astronauts.forEach((astronaut) => {
     // append div to main tag
-    astronautList.insertAdjacentHTML('beforeend', `<div class='person'><img class='person-img' src= '${astronaut.image}' alt='${astronaut.name}-image'> <div class='title-area'><h2>${astronaut.name}</h2> <i class="heart fa-regular fa-heart" id="${astronaut.id}"></i> </div> <button class="comment-${astronaut.id}">Comments</button><button>Reservations</button></div>`);
+    astronautList.insertAdjacentHTML('beforeend', `<div class='person'><img class='person-img' src= '${astronaut.image}' alt='${astronaut.name}-image'> <div class='title-area'><h2>${astronaut.name}</h2> <i class="heart fa-regular fa-heart" id="${astronaut.id}">0</i> </div> <button class="comment-${astronaut.id}">Comments</button><button>Reservations</button></div>`);
     document.getElementById(`${astronaut.id}`).addEventListener('click',() =>{
       const newLike = {
         item_id: astronaut.id,
@@ -52,12 +52,9 @@ export const displayAstronauts = (astronauts) => {
 
 // create arrow function to loop through and display austraunauts lists from API
 export const displayAstronautsLikes = (likes) => {
-  let count = 0;
   likes.forEach((like) => {
-    count += 1;
     // append likes to each heart tag
-    if(count == like.item_id)
-    document.getElementById(`${count}`).innerHTML = `: ${like.likes}`;
+    document.getElementById(`${like.item_id}`).innerHTML = `${like.likes}`;
   });
 };
 
