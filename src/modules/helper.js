@@ -21,9 +21,6 @@ export const displayAstronautsLikes = (likes) => {
     document.getElementById(`${like.item_id}`).innerHTML(`: ${like.likes}`);
   });
 }
-document.querySelector('.comment-`${astronaut.id}`').addEventListener('click', () => {
-  document.getElementById('overlay-project').style.display = 'block';
-});
 
 // get all Austronauts currently in Space from API
 export const getAllAstronauts = async () => {
