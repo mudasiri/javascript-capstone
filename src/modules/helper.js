@@ -15,12 +15,12 @@ export const addNewLike = async (newLike) => {
     });
 
     if (!req.ok) {
-      return data;
+      return req.status;
     }
     const prevLikeTag = document.getElementById(`${newLike.item_id}`);
-    const previosLikeCount = Number(document.getElementById(`${newLike.item_id}`).innerText)
+    const previosLikeCount = Number(document.getElementById(`${newLike.item_id}`).innerText);
     prevLikeTag.innerHTML = previosLikeCount + 1;
-    return data;
+    return req;
   } catch (error) {
     return error;
   }
@@ -32,7 +32,7 @@ export const displayAstronauts = (astronauts) => {
   astronauts.forEach((astronaut) => {
     // append div to main tag
     astronautList.insertAdjacentHTML('beforeend', `<div class='person'><img class='person-img' src= '${astronaut.image}' alt='${astronaut.name}-image'> <div class='title-area'><h2>${astronaut.name}</h2> <i class="heart fa-regular fa-heart" id="${astronaut.id}">0</i> </div> <button class="comment-${astronaut.id}">Comments</button><button>Reservations</button></div>`);
-    document.getElementById(`${astronaut.id}`).addEventListener('click',() =>{
+    document.getElementById(`${astronaut.id}`).addEventListener('click', () => {
       const newLike = {
         item_id: astronaut.id,
       };
