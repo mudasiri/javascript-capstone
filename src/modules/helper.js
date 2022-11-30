@@ -6,7 +6,17 @@ export const displayAstronauts = (astronauts) => {
   astronautList.innerHTML = '';
   astronauts.forEach((astronaut) => {
     // append div to main tag
-    astronautList.insertAdjacentHTML('beforeend', `<div class='person'><img class='person-img' src= '${astronaut.image}' alt='${astronaut.name}-image'> <div class='title-area'><h2>${astronaut.name}</h2> <i class="heart fa-regular fa-heart"></i> </div> <button>Comments</button><button>Reservations</button></div>`);
+    astronautList.insertAdjacentHTML('beforeend', `<div class='person'><img class='person-img' src= '${astronaut.image}' alt='${astronaut.name}-image'> <div class='title-area'><h2>${astronaut.name}</h2> <i class="heart fa-regular fa-heart"></i> </div> <button class="comment-${astronaut.id}">Comments</button><button>Reservations</button></div>`);
+
+    document.querySelector(`.comment-${astronaut.id}`).addEventListener('click', () => {
+      document.getElementById('overlay-project').style.display = 'block';
+      document.querySelector('.popup-image').src = `${astronaut.image}`;
+      document.querySelector('.popup-title').innerHTML = `${astronaut.name}`;
+      document.querySelector('.country').innerHTML = `Country: ${astronaut.country}`;
+      document.querySelector('.agency').innerHTML = `Agency: ${astronaut.agency}`;
+      document.querySelector('.position').innerHTML = `Position: ${astronaut.position}`;
+      document.querySelector('.spacecraft').innerHTML = `Spacecraft: ${astronaut.spacecraft}`;
+    });
   });
 };
 
