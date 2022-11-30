@@ -1,4 +1,5 @@
-import { countHomeItems } from './counter.js';
+import countHomeItems from './counter.js';
+
 const gameID = process.env.GAMEID;
 
 // grab main tag displaying astronauts items
