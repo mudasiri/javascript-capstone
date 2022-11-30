@@ -8,7 +8,7 @@ export const displayAstronauts = (astronauts) => {
   astronautList.innerHTML = '';
   astronauts.forEach((astronaut) => {
     // append div to main tag
-    astronautList.insertAdjacentHTML('beforeend', `<div class='person'><img class='person-img' src= '${astronaut.image}' alt='${astronaut.name}-image'> <div class='title-area'><h2>${astronaut.name}</h2> <i class="heart fa-regular fa-heart"></i> </div> <button class="comment-${astronaut.id}">Comments</button><button>Reservations</button></div>`);
+    astronautList.insertAdjacentHTML('beforeend', `<div class='person'><img class='person-img' src= '${astronaut.image}' alt='${astronaut.name}-image'> <div class='title-area'><h2>${astronaut.name}</h2> <i class="heart fa-regular fa-heart" id="${astronaut.id}"></i> </div> <button class="comment-${astronaut.id}">Comments</button><button>Reservations</button></div>`);
 
     document.querySelector(`.comment-${astronaut.id}`).addEventListener('click', () => {
       document.getElementById('overlay-project').style.display = 'block';
@@ -20,6 +20,32 @@ export const displayAstronauts = (astronauts) => {
       document.querySelector('.spacecraft').innerHTML = `Spacecraft: ${astronaut.spacecraft}`;
     });
   });
+};
+
+// create arrow function to loop through and display austraunauts lists from API
+export const displayAstronautsLikes = (likes) => {
+  likes.forEach((like) => {
+    // append likes to each heart tag
+    document.getElementById(`${like.id}`).innerHTML(`: ${like.likes}`);
+  });
+};
+
+// get all Likes currently in Space from API
+export const getAllAstronautsLikes = async () => {
+  try {
+    const req = await fetch(`https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/${gameID}/likes`);
+    const data = await req.json();
+
+    if (!req.ok) {
+      return data;
+    }
+
+    const likesData = data;
+    displayAstronautsLikes(likesData);
+    return likesData;
+  } catch (error) {
+    return error;
+  }
 };
 
 // get all Austronauts currently in Space from API
@@ -41,44 +67,23 @@ export const getAllAstronauts = async () => {
   }
 };
 
-// get all Likes currently in Space from API
-export const getAllAstronautsLikes = async () => {
+// create new API
+export const createNewApp = async () => {
   try {
-    const req = await fetch(`https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/${gameID}/likes`);
-    const data = await req.json();
+    const req = await fetch('https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    const result = req;
 
     if (!req.ok) {
-      return data;
+      return result;
     }
-
-    const likesData = data;
-    displayAstronautsLikes(likesData);
-    return likesData;
+    return result;
   } catch (error) {
     return error;
   }
 };
-
-// create new API
-export const createNewApp = async () => {
-    try {
-      const req = await fetch('https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-  
-      const result = req;
-  
-      if (!req.ok) {
-        return result;
-      }
-      console.log(result);
-      return result;
-    } catch (error) {
-      return error;
-    }
-  };
-  
-
