@@ -1,3 +1,4 @@
+import { countHomeItems } from './counter.js';
 const gameID = process.env.GAMEID;
 
 // grab main tag displaying astronauts items
@@ -48,6 +49,7 @@ export const displayAstronauts = (astronauts) => {
       document.querySelector('.spacecraft').innerHTML = `Spacecraft: ${astronaut.spacecraft}`;
     });
   });
+  countHomeItems();
 };
 
 // create arrow function to loop through and display austraunauts lists from API
