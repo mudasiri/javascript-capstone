@@ -1,3 +1,5 @@
+import countHomeItems from './counter.js';
+
 const gameID = process.env.GAMEID;
 
 // grab main tag displaying astronauts items
@@ -26,13 +28,41 @@ export const getAllAstronautComments = async (astronautId) => {
   }
 };
 
+// function to Post Like
+export const addNewLike = async (newLike) => {
+  try {
+    const req = await fetch(`https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/${gameID}/likes`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(newLike),
+    });
+
+    if (!req.ok) {
+      return req.status;
+    }
+    const prevLikeTag = document.getElementById(`${newLike.item_id}`);
+    const previosLikeCount = Number(document.getElementById(`${newLike.item_id}`).innerText);
+    prevLikeTag.innerHTML = previosLikeCount + 1;
+    return req;
+  } catch (error) {
+    return error;
+  }
+};
+
 // create arrow function to loop through and display austraunauts lists from API
 export const displayAstronauts = (astronauts) => {
   astronautList.innerHTML = '';
   astronauts.forEach((astronaut) => {
     // append div to main tag
-    astronautList.insertAdjacentHTML('beforeend', `<div class='person'><img class='person-img' src= '${astronaut.image}' alt='${astronaut.name}-image'> <div class='title-area'><h2>${astronaut.name}</h2> <i class="heart fa-regular fa-heart" id="${astronaut.id}"></i> </div> <button class="comment-${astronaut.id}">Comments</button><button>Reservations</button></div>`);
-
+    astronautList.insertAdjacentHTML('beforeend', `<div class='person'><img class='person-img' src= '${astronaut.image}' alt='${astronaut.name}-image'> <div class='title-area'><h2>${astronaut.name}</h2> <i class="heart fa-regular fa-heart" id="${astronaut.id}">0</i> </div> <button class="comment-${astronaut.id}">Comments</button><button>Reservations</button></div>`);
+    document.getElementById(`${astronaut.id}`).addEventListener('click', () => {
+      const newLike = {
+        item_id: astronaut.id,
+      };
+      addNewLike(newLike);
+    });
     document.querySelector(`.comment-${astronaut.id}`).addEventListener('click', () => {
       document.getElementById('overlay-project').style.display = 'block';
       document.querySelector('.popup-image').src = `${astronaut.image}`;
@@ -44,13 +74,14 @@ export const displayAstronauts = (astronauts) => {
       getAllAstronautComments(astronaut.id);
     });
   });
+  countHomeItems();
 };
 
 // create arrow function to loop through and display austraunauts lists from API
 export const displayAstronautsLikes = (likes) => {
   likes.forEach((like) => {
     // append likes to each heart tag
-    document.getElementById(`${like.id}`).innerHTML(`: ${like.likes}`);
+    document.getElementById(`${like.item_id}`).innerHTML = `${like.likes}`;
   });
 };
 
