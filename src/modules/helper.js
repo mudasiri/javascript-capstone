@@ -3,6 +3,24 @@ const gameID = process.env.GAMEID;
 // grab main tag displaying astronauts items
 const astronautList = document.getElementById('astronaut');
 
+//get comments of an astronaut
+export const getAllAstronautComments = async (astronautId) => {
+  try {
+    const req = await fetch(`https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/${gameID}/comments?item_id=${astronautId}`);
+    const data = await req.json();
+    if (!req.ok) {
+      return data;
+    }
+    
+    const commentData = data;
+    console.log(commentData);
+    return commentData;
+
+  } catch (error) {
+    return error;
+  }
+}
+
 // create arrow function to loop through and display austraunauts lists from API
 export const displayAstronauts = (astronauts) => {
   astronautList.innerHTML = '';
@@ -18,13 +36,16 @@ export const displayAstronauts = (astronauts) => {
       document.querySelector('.agency').innerHTML = `Agency: ${astronaut.agency}`;
       document.querySelector('.position').innerHTML = `Position: ${astronaut.position}`;
       document.querySelector('.spacecraft').innerHTML = `Spacecraft: ${astronaut.spacecraft}`;
-      const comments = document.createElement('p');
-      comments.setAttribute( 'id' , );
-      // create arrow function to loop through and display austraunauts lists from API
-      
-      document.getElementById('comments').innerHTML = ``;
 
+      let data = getAllAstronautComments(astronaut.id);
+      let commentDiv= document.getElementById('comments');
+      console.log(data);
 
+      commentDiv.insertAdjacentHTML('beforeend', `<p> username${data[0].username} : comment${data.comment} : ${data.creation_date} </p>`);
+      // for (let i = 0; i<= data.length; i++){
+      //   console.log(data[i].username);
+      //   commentDiv.insertAdjacentHTML('beforeend', `<p> ${comment.username} : ${comment.comment} : ${comment.creation_date} </p>`);
+      // }
     });
   });
 };
@@ -37,13 +58,6 @@ export const displayAstronautsLikes = (likes) => {
   });
 };
 
-const displayAstronautsComments = (comments) => {
-  comments.forEach((comment) => {
-    // append comments to each astronaut
-    document.getElementById(`comment${comment.id}`).innerHTML(`: ${comment.comments}`);
-  });
-};
-
 // get all Likes currently in Space from API
 export const getAllAstronautsLikes = async () => {
   try {
@@ -53,7 +67,6 @@ export const getAllAstronautsLikes = async () => {
     if (!req.ok) {
       return data;
     }
-
     const likesData = data;
     displayAstronautsLikes(likesData);
     return likesData;
@@ -62,23 +75,7 @@ export const getAllAstronautsLikes = async () => {
   }
 };
 
-// get all comments currently in Space from API
-export const getAllAstronautsComments = async () => {
-  try {
-    const req = await fetch(`https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/${gameID}/comments`);
-    const data = await req.json();
 
-    if (!req.ok) {
-      return data;
-    }
-
-    const commentsData = data;
-    displayAstronautsComments(commentsData);
-    return commentsData;
-  } catch (error) {
-    return error;
-  }
-};
 
 // get all Austronauts currently in Space from API
 export const getAllAstronauts = async () => {
@@ -89,7 +86,7 @@ export const getAllAstronauts = async () => {
     if (!req.ok) {
       return data;
     }
-
+    console.log(data);
     const astronauts = data.people;
     displayAstronauts(astronauts);
     getAllAstronautsLikes();
