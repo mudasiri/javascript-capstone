@@ -77,6 +77,10 @@ header {
   text-align: center;
 }
 
+h2.comment-title {
+  text-align: center;
+}
+
 .close {
   transform: scale(3);
 }

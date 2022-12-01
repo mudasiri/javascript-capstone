@@ -3,7 +3,14 @@ const gameID = process.env.GAMEID;
 // grab main tag displaying astronauts items
 const astronautList = document.getElementById('astronaut');
 
-//get comments of an astronaut
+// get comments of an astronaut
+const createCommentsSection = (usercomments) => {
+  const commentDiv = document.getElementById('comments-data');
+  usercomments.forEach((comment) => {
+    commentDiv.insertAdjacentHTML('beforeend', `<b>${comment.creation_date} : ${comment.username} : ${comment.comment} </b>`);
+  });
+};
+
 export const getAllAstronautComments = async (astronautId) => {
   try {
     const req = await fetch(`https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/${gameID}/comments?item_id=${astronautId}`);
@@ -11,15 +18,13 @@ export const getAllAstronautComments = async (astronautId) => {
     if (!req.ok) {
       return data;
     }
-    
     const commentData = data;
-    console.log(commentData);
+    createCommentsSection(commentData);
     return commentData;
-
   } catch (error) {
     return error;
   }
-}
+};
 
 // create arrow function to loop through and display austraunauts lists from API
 export const displayAstronauts = (astronauts) => {
@@ -36,16 +41,7 @@ export const displayAstronauts = (astronauts) => {
       document.querySelector('.agency').innerHTML = `Agency: ${astronaut.agency}`;
       document.querySelector('.position').innerHTML = `Position: ${astronaut.position}`;
       document.querySelector('.spacecraft').innerHTML = `Spacecraft: ${astronaut.spacecraft}`;
-
-      let data = getAllAstronautComments(astronaut.id);
-      let commentDiv= document.getElementById('comments');
-      console.log(data);
-
-      commentDiv.insertAdjacentHTML('beforeend', `<p> username${data[0].username} : comment${data.comment} : ${data.creation_date} </p>`);
-      // for (let i = 0; i<= data.length; i++){
-      //   console.log(data[i].username);
-      //   commentDiv.insertAdjacentHTML('beforeend', `<p> ${comment.username} : ${comment.comment} : ${comment.creation_date} </p>`);
-      // }
+      getAllAstronautComments(astronaut.id);
     });
   });
 };
@@ -75,8 +71,6 @@ export const getAllAstronautsLikes = async () => {
   }
 };
 
-
-
 // get all Austronauts currently in Space from API
 export const getAllAstronauts = async () => {
   try {
@@ -86,11 +80,9 @@ export const getAllAstronauts = async () => {
     if (!req.ok) {
       return data;
     }
-    console.log(data);
     const astronauts = data.people;
     displayAstronauts(astronauts);
     getAllAstronautsLikes();
-    getAllAstronautsComments();
     return astronauts;
   } catch (error) {
     return error;
