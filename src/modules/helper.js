@@ -1,6 +1,46 @@
 import countHomeItems from './counter.js';
 
 const gameID = process.env.GAMEID;
+const commentForm = document.getElementById('comment-submit');
+
+export const addNewComment = async (newComment) => {
+  try {
+    const req = await fetch(`https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/${gameID}/comments`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(newComment),
+    });
+
+    if (!req.ok) {
+      return req.status;
+    }
+    getAllAstronautComments(newComment.item_id);
+    return req;
+  } catch (error) {
+    return error;
+  }
+};
+
+commentForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const name = document.getElementById('name');
+  const comment = document.getElementById('comment');
+  const itemComment = document.getElementById('item-id');
+
+  const newComment = {
+    item_id: itemComment.value,
+    username: name.value,
+    comment: comment.value,
+  };
+  name.value = '';
+  comment.value = '';
+  itemComment.value = '';
+
+  addNewComment(newComment);
+});
+
 
 // grab main tag displaying astronauts items
 const astronautList = document.getElementById('astronaut');
@@ -9,7 +49,7 @@ const astronautList = document.getElementById('astronaut');
 const createCommentsSection = (usercomments) => {
   const commentDiv = document.getElementById('comments-data');
   usercomments.forEach((comment) => {
-    commentDiv.insertAdjacentHTML('beforeend', `<b>${comment.creation_date} : ${comment.username} : ${comment.comment} </b>`);
+    commentDiv.insertAdjacentHTML('beforeend', `<b>${comment.creation_date} : ${comment.username} : ${comment.comment} </b><br>`);
   });
 };
 
@@ -71,7 +111,10 @@ export const displayAstronauts = (astronauts) => {
       document.querySelector('.agency').innerHTML = `Agency: ${astronaut.agency}`;
       document.querySelector('.position').innerHTML = `Position: ${astronaut.position}`;
       document.querySelector('.spacecraft').innerHTML = `Spacecraft: ${astronaut.spacecraft}`;
+      const item_id_input = document.getElementById('item-id');
+      item_id_input.setAttribute('value',`${astronaut.id}`) ;
       getAllAstronautComments(astronaut.id);
+
     });
   });
   countHomeItems();
