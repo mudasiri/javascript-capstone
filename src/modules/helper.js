@@ -3,6 +3,29 @@ import countHomeItems from './counter.js';
 const gameID = process.env.GAMEID;
 const commentForm = document.getElementById('comment-submit');
 
+// get comments of an astronaut
+const createCommentsSection = (usercomments) => {
+  const commentDiv = document.getElementById('comments-data');
+  usercomments.forEach((comment) => {
+    commentDiv.insertAdjacentHTML('beforeend', `<b>${comment.creation_date} : ${comment.username} : ${comment.comment} </b><br>`);
+  });
+};
+
+export const getAllAstronautComments = async (astronautId) => {
+  try {
+    const req = await fetch(`https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/${gameID}/comments?item_id=${astronautId}`);
+    const data = await req.json();
+    if (!req.ok) {
+      return data;
+    }
+    const commentData = data;
+    createCommentsSection(commentData);
+    return commentData;
+  } catch (error) {
+    return error;
+  }
+};
+
 export const addNewComment = async (newComment) => {
   try {
     const req = await fetch(`https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/${gameID}/comments`, {
@@ -41,32 +64,8 @@ commentForm.addEventListener('submit', (e) => {
   addNewComment(newComment);
 });
 
-
 // grab main tag displaying astronauts items
 const astronautList = document.getElementById('astronaut');
-
-// get comments of an astronaut
-const createCommentsSection = (usercomments) => {
-  const commentDiv = document.getElementById('comments-data');
-  usercomments.forEach((comment) => {
-    commentDiv.insertAdjacentHTML('beforeend', `<b>${comment.creation_date} : ${comment.username} : ${comment.comment} </b><br>`);
-  });
-};
-
-export const getAllAstronautComments = async (astronautId) => {
-  try {
-    const req = await fetch(`https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/${gameID}/comments?item_id=${astronautId}`);
-    const data = await req.json();
-    if (!req.ok) {
-      return data;
-    }
-    const commentData = data;
-    createCommentsSection(commentData);
-    return commentData;
-  } catch (error) {
-    return error;
-  }
-};
 
 // function to Post Like
 export const addNewLike = async (newLike) => {
@@ -111,10 +110,9 @@ export const displayAstronauts = (astronauts) => {
       document.querySelector('.agency').innerHTML = `Agency: ${astronaut.agency}`;
       document.querySelector('.position').innerHTML = `Position: ${astronaut.position}`;
       document.querySelector('.spacecraft').innerHTML = `Spacecraft: ${astronaut.spacecraft}`;
-      const item_id_input = document.getElementById('item-id');
-      item_id_input.setAttribute('value',`${astronaut.id}`) ;
+      const itemInput = document.getElementById('item-id');
+      itemInput.setAttribute('value', `${astronaut.id}`);
       getAllAstronautComments(astronaut.id);
-
     });
   });
   countHomeItems();
