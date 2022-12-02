@@ -95,7 +95,7 @@ export const displayAstronauts = (astronauts) => {
   astronautList.innerHTML = '';
   astronauts.forEach((astronaut) => {
     // append div to main tag
-    astronautList.insertAdjacentHTML('beforeend', `<div class='person'><img class='person-img' src= '${astronaut.image}' alt='${astronaut.name}-image'> <div class='title-area'><h2>${astronaut.name}</h2> <i class="heart fa-regular fa-heart" id="${astronaut.id}">0</i> </div> <button class="comment-${astronaut.id}">Comments</button><button>Reservations</button></div>`);
+    astronautList.insertAdjacentHTML('beforeend', `<div class='person p-3 mb-2 bg-light text-white"'><img class='person-img' src= '${astronaut.image}' alt='${astronaut.name}-image'> <div class='title-area'><h2>${astronaut.name}</h2> <i class="heart fa-regular fa-heart" id="${astronaut.id}">0</i> </div> <button class="comment-${astronaut.id} btn btn-primary">Comments</button><button class="btn btn-primary">Reservations</button></div>`);
     document.getElementById(`${astronaut.id}`).addEventListener('click', () => {
       const newLike = {
         item_id: astronaut.id,

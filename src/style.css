@@ -1,24 +1,45 @@
 body {
-  background-color: bisque;
+  margin: 0;
+  background-color: #e5e5f7;
+  background-image: radial-gradient(#444cf7 0.8500000000000001px, transparent 0.8500000000000001px), radial-gradient(#444cf7 0.8500000000000001px, #e5e5f7 0.8500000000000001px);
+  background-size: 34px 34px;
+  background-position: 0 0, 17px 17px;
 }
 
 header {
-  padding-top: 20px;
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
+  height: 10vh;
+}
+
+.navbar {
+  justify-content: space-around;
 }
 
 #astronaut {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 30px;
-  padding: 5%;
+  padding: 30px;
+}
+
+i.fas.fa-user-astronaut {
+  transform: scale(3);
+}
+
+a {
+  font-size: x-large;
+  text-decoration: none;
+  color: #586B6A;
+  font-weight: 500;
+  padding: 5px;
 }
 
 .person {
   display: flex;
   flex-direction: column;
+  background-color: #5FB8B5;
+  padding: 20px;
+  border-radius: 20px;
+  gap: 10px;
 }
 
 .person-img {
@@ -45,6 +66,7 @@ header {
   bottom: 0;
   min-height: 100vh;
   width: 100%;
+  padding: 4rem;
   background-color: #c1c7d0e7;
   z-index: 2;
   overflow: auto;
@@ -52,6 +74,7 @@ header {
 
 .displayover {
   display: flex;
+  padding: 100px;
   height: 100vh;
   flex-direction: column;
   align-items: center;
@@ -86,7 +109,7 @@ h2.comment-title {
 }
 
 img.popup-image {
-  width: 50vh;
+  width: 20vh;
 }
 
 footer {
