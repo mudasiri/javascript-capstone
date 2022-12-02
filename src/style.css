@@ -131,10 +131,9 @@ footer {
   align-items: center;
 }
 
-
 @media only screen and (max-width: 768px) {
   #astronaut {
-    grid-template-columns: repeat(2, 1fr);  
+    grid-template-columns: repeat(2, 1fr);
     gap: 1px;
     margin-top: 60px;
   }
