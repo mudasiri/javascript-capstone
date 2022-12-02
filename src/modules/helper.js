@@ -1,4 +1,5 @@
 import countHomeItems from './counter.js';
+import countComments from './countComments.js';
 
 const gameID = process.env.GAMEID;
 const commentForm = document.getElementById('comment-submit');
@@ -7,7 +8,8 @@ const commentForm = document.getElementById('comment-submit');
 const createCommentsSection = (usercomments) => {
   const commentDiv = document.getElementById('comments-data');
   usercomments.forEach((comment) => {
-    commentDiv.insertAdjacentHTML('beforeend', `<b>${comment.creation_date} : ${comment.username} : ${comment.comment} </b><br>`);
+    commentDiv.insertAdjacentHTML('beforeend', `<b class="comm">${comment.creation_date} : ${comment.username} : ${comment.comment} </b><br>`);
+    countComments();
   });
 };
 
@@ -115,6 +117,7 @@ export const displayAstronauts = (astronauts) => {
       getAllAstronautComments(astronaut.id);
     });
   });
+
   countHomeItems();
 };
 
