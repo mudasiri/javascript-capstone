@@ -5,7 +5,7 @@
   <img src="https://github.com/jash-debug/Readme-new-template/blob/master/murple_logo.png?raw=true" alt="logo" width="140"  height="auto" />
   <br/>
 
-  <h3><b>Microverse README Template</b></h3>
+  <h3><b>My Space Wiki App</b></h3>
 
 </div>
 
@@ -14,7 +14,7 @@
 # 📗 Table of Contents
 
 - [📗 Table of Contents](#-table-of-contents)
-- [📖 \[javascript-capstone\] ](#-javascript-capstone-)
+- [📖 \[javascript-capstone\] ](#-myspace WiKi-)
   - [🛠 Built With ](#-built-with-)
     - [Tech Stack ](#tech-stack-)
     - [Key Features ](#key-features-)
@@ -36,14 +36,13 @@
 
 <!-- PROJECT DESCRIPTION -->
 
-# 📖 [javascript-capstone] <a name="about-project"></a>
+# 📖 [myspace WiKi] <a name="about-project"></a>
 
-**[javascript-capstone]** is an application built using Webpack, That get likes or comments from the [involvement Api](https://www.notion.so/Involvement-API-869e60b5ad104603aa6db59e08150270) loads user details from [People in Space Api](https://github.com/corquaid/international-space-station-APIs
-).
+**[javascript-capstone]** is an application built to show users the names of humans in space, Users are able to like or comment on an astronauts profile and the likes or comments are saved and pulled from the [involvement Api](https://www.notion.so/Involvement-API-869e60b5ad104603aa6db59e08150270) also the details of the people in spooace are gotten from the [People in Space Api](https://github.com/corquaid/international-space-station-APIs).
 
-## 🛠 Built With <a name="built-with"></a>
+## 🛠 Built With <a name="built-with">HTML Javascript</a>
 
-### Tech Stack <a name="tech-stack"></a>
+### Tech Stack <a name="tech-stack">Web Pack</a>
 
 <details>
   <summary>Client</summary>
@@ -70,7 +69,7 @@
 
 ### Key Features <a name="key-features"></a>
 
-- **[Leaderboard_Api]**
+- **[InvolvementAPI]**
 - **[Webpack]**
 
 
