@@ -1,6 +1,70 @@
 import countHomeItems from './counter.js';
+import countComments from './countComments.js';
 
 const gameID = process.env.GAMEID;
+const commentForm = document.getElementById('comment-submit');
+
+// get comments of an astronaut
+const createCommentsSection = (usercomments) => {
+  const commentDiv = document.getElementById('comments-data');
+  usercomments.forEach((comment) => {
+    commentDiv.insertAdjacentHTML('beforeend', `<b class="comm">${comment.creation_date} : ${comment.username} : ${comment.comment} </b><br>`);
+    countComments();
+  });
+};
+
+export const getAllAstronautComments = async (astronautId) => {
+  try {
+    const req = await fetch(`https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/${gameID}/comments?item_id=${astronautId}`);
+    const data = await req.json();
+    if (!req.ok) {
+      return data;
+    }
+    const commentData = data;
+    createCommentsSection(commentData);
+    return commentData;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const addNewComment = async (newComment) => {
+  try {
+    const req = await fetch(`https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/${gameID}/comments`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(newComment),
+    });
+
+    if (!req.ok) {
+      return req.status;
+    }
+    getAllAstronautComments(newComment.item_id);
+    return req;
+  } catch (error) {
+    return error;
+  }
+};
+
+commentForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const name = document.getElementById('name');
+  const comment = document.getElementById('comment');
+  const itemComment = document.getElementById('item-id');
+
+  const newComment = {
+    item_id: itemComment.value,
+    username: name.value,
+    comment: comment.value,
+  };
+  name.value = '';
+  comment.value = '';
+  itemComment.value = '';
+
+  addNewComment(newComment);
+});
 
 // grab main tag displaying astronauts items
 const astronautList = document.getElementById('astronaut');
@@ -33,7 +97,7 @@ export const displayAstronauts = (astronauts) => {
   astronautList.innerHTML = '';
   astronauts.forEach((astronaut) => {
     // append div to main tag
-    astronautList.insertAdjacentHTML('beforeend', `<div class='person'><img class='person-img' src= '${astronaut.image}' alt='${astronaut.name}-image'> <div class='title-area'><h2>${astronaut.name}</h2> <i class="heart fa-regular fa-heart" id="${astronaut.id}">0</i> </div> <button class="comment-${astronaut.id}">Comments</button><button>Reservations</button></div>`);
+    astronautList.insertAdjacentHTML('beforeend', `<div class='person p-3 mb-2 bg-light text-white"'><img class='person-img' src= '${astronaut.image}' alt='${astronaut.name}-image'> <div class='title-area'><h2>${astronaut.name}</h2> <i class="heart fa-regular fa-heart" id="${astronaut.id}">0</i> </div> <button class="comment-${astronaut.id} btn btn-primary">Comments</button><button class="btn btn-primary">Reservations</button></div>`);
     document.getElementById(`${astronaut.id}`).addEventListener('click', () => {
       const newLike = {
         item_id: astronaut.id,
@@ -48,8 +112,12 @@ export const displayAstronauts = (astronauts) => {
       document.querySelector('.agency').innerHTML = `Agency: ${astronaut.agency}`;
       document.querySelector('.position').innerHTML = `Position: ${astronaut.position}`;
       document.querySelector('.spacecraft').innerHTML = `Spacecraft: ${astronaut.spacecraft}`;
+      const itemInput = document.getElementById('item-id');
+      itemInput.setAttribute('value', `${astronaut.id}`);
+      getAllAstronautComments(astronaut.id);
     });
   });
+
   countHomeItems();
 };
 
@@ -70,7 +138,6 @@ export const getAllAstronautsLikes = async () => {
     if (!req.ok) {
       return data;
     }
-
     const likesData = data;
     displayAstronautsLikes(likesData);
     return likesData;
@@ -88,7 +155,6 @@ export const getAllAstronauts = async () => {
     if (!req.ok) {
       return data;
     }
-
     const astronauts = data.people;
     displayAstronauts(astronauts);
     getAllAstronautsLikes();
