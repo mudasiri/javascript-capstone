@@ -80,8 +80,7 @@
 
 ## 🚀 Live Demo <a name="live-demo"></a>
 
-- [Live Demo Link](https://jash-debug.github.io/Leaderboard/dist/)
-
+- [Live Demo Link](https://mudasiri.github.io/javascript-capstone/dist/)
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- GETTING STARTED -->
@@ -117,7 +116,7 @@ Install this project with:
 Assuming you have git installed on your computer, please follow the steps below: 
 - Create a folder
 - Navigate to that folder in the command line using the `cd` command
-- Clone the repository using the following command: git clone https://github.com/jash-debug/Leaderboard.git
+- Clone the repository using the following command: git clone https://github.com/mudasiri/javascript-capstone.git
  
 - You will now be able to check the project with your code editor.
 
