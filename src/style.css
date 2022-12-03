@@ -99,11 +99,10 @@ a {
 .displayover {
   display: flex;
   padding: 60px;
-  height: fit-content;
+  height: auto;
   align-items: center;
   justify-content: center;
   transform: scale(0.7);
-  
 }
 
 .flexbox-popup {
