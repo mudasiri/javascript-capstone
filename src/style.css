@@ -1,0 +1,165 @@
+body {
+  margin: 0;
+  background-color: #e5e5f7;
+  background-image: radial-gradient(#444cf7 0.8500000000000001px, transparent 0.8500000000000001px), radial-gradient(#444cf7 0.8500000000000001px, #e5e5f7 0.8500000000000001px);
+  background-size: 34px 34px;
+  background-position: 0 0, 17px 17px;
+}
+
+header {
+  height: 10vh;
+}
+
+.navbar {
+  justify-content: space-around;
+}
+
+#astronaut {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+  margin-top: 50px;
+  padding: 5%;
+}
+
+i.fas.fa-user-astronaut {
+  transform: scale(3);
+}
+
+form {
+  width: 60vw;
+  padding: 10px;
+}
+
+a {
+  font-size: x-large;
+  text-decoration: none;
+  color: #586b6a;
+  font-weight: 500;
+  padding: 5px;
+}
+
+.person {
+  display: flex;
+  flex-direction: column;
+  background-color: #5fb8b5;
+  padding: 20px;
+  border-radius: 20px;
+  gap: 10px;
+}
+
+.person:hover {
+  transition: all 300ms ease-in-out;
+  transform: scale(1.02);
+  opacity: 1;
+  border-radius: 10px;
+}
+
+.person-img {
+  height: 100%;
+  width: 100%;
+}
+
+.title-area {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.heart {
+  color: tomato;
+}
+
+.fixed-top {
+  z-index: 2;
+}
+
+.overlay-project {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  min-height: 100vh;
+  width: 100%;
+  padding: 4rem;
+  padding-top: 0;
+  background-color: #c1c7d0e7;
+  overflow-x: scroll;
+  z-index: 4;
+}
+
+.info > p {
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: x-large;
+}
+
+.displayover {
+  display: flex;
+  padding: 60px;
+  height: auto;
+  align-items: center;
+  justify-content: center;
+  transform: scale(0.7);
+}
+
+.flexbox-popup {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.info {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  align-items: center;
+  justify-items: center;
+  width: 100vw;
+}
+
+.popup-title {
+  text-align: center;
+}
+
+h2.comment-title {
+  text-align: center;
+}
+
+.close {
+  transform: scale(3);
+  align-items: flex-end;
+}
+
+img.popup-image {
+  width: 20vh;
+}
+
+footer {
+  bottom: 0;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+@media only screen and (max-width: 768px) {
+  #astronaut {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    margin-top: 60px;
+  }
+
+  i.fas.fa-user-astronaut {
+    transform: scale(1);
+  }
+
+  a {
+    font-size: x-small;
+  }
+
+  .person {
+    transform: scale(0.8);
+  }
+}
